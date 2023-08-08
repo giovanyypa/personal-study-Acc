@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  database:
+    container_name: mysql-server
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: test_password
+      MYSQL_DATABASE: my_test_database
+      MYSQL_USER: test_user
+      MYSQL_PASSWORD: test_password
+    ports:
+      - "9100:3306"
+
+  php-apache:
+    container_name: php8-with-apache
+    image: my-php-mysql
+    depends_on:
+      - database
+    volumes:
+      - /home/gyparraguirre/cartellaContainerDockerPhp:/var/www/html
+    ports:
+      - 8100:80

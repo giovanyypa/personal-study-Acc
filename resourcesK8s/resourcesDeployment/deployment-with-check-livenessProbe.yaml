@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodejs
+  name: nodejs-with-check-liveness
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodejs
+  template:
+    metadata:
+      labels:
+        app: nodejs
+      annotations:
+        kubernetes.io/change-cause: "Aggiornamento immagine , cambio root di interrogazione"
+    spec:
+      containers:
+      - image: lbatalla/my-nodejs-app
+        name: nodejs
+        ports:
+        - containerPort: 3000
+        livenessProbe:
+          httpGet:
+            path: http://localhost/
+            port: 3000
+          initialDelaySeconds: 3
+          periodSeconds: 3
+          failureThreshold: 3

@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: my-files
+data:
+  user.properties: >-
+      myproperty=value
+  simple-text.txt: >-
+      Hello world!
+
